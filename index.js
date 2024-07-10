@@ -50,6 +50,10 @@ const compararDatos = () => {
     const datosImp = convertirTn();
     const datosImpMp = convertirMp();
 
+    // ver si hay contenido en las notas
+    const notas = datosImp.filter((dato)=> dato['Notas del vendedor'] !== undefined);
+    console.log(notas)
+
     // Recorrer los datos y comparar
     datosImp.forEach((datoTn) => {
         const idTransaccionTn = datoTn['Identificador de la transacción en el medio de pago'];
