@@ -3,10 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Landing Page para Cruce de Datos</title>
+    <!-- Incluir Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    
-    <script src="index.js"></script>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Cargar Archivos Excel</h2>
+                <form id="formCargarArchivos">
+                    <div class="form-group">
+                        <label for="archivoTn">Archivo Transacciones:</label>
+                        <input type="file" class="form-control-file" id="archivoTn" accept=".xlsx,.xls,.csv">
+                    </div>
+                    <div class="form-group">
+                        <label for="archivoMp">Archivo Mercado Pago:</label>
+                        <input type="file" class="form-control-file" id="archivoMp" accept=".xlsx,.xls,.csv">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Cargar Archivos</button>
+                </form>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <h2>Descargar Archivo Generado</h2>
+                <button id="descargarArchivo" class="btn btn-success">Descargar Excel</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-light text-center py-4 bottom-0 w-100">
+        <p>&copy; Todos los derechos reservados</p>
+    </footer>
+
+    <!-- Incluir Bootstrap JS y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Tu script personalizado para manejar la carga y descarga de archivos -->
+    <script>
+        $(document).ready(function() {
+            let archivoTn, archivoMp;
+
+            $('#formCargarArchivos').submit(function(event) {
+                event.preventDefault();
+
+                archivoTn = $('#archivoTn')[0].files[0];
+                archivoMp = $('#archivoMp')[0].files[0];
+
+                if (!archivoTn || !archivoMp) {
+                    alert('Por favor carga ambos archivos antes de continuar.');
+                    return;
+                }
+
+                // Simular envío de archivos al servidor
+                alert('Archivos cargados exitosamente. Puedes descargar el archivo generado.');
+
+                // Habilitar el botón de descarga
+                $('#descargarArchivo').prop('disabled', false);
+            });
+
+            $('#descargarArchivo').click(function() {
+                // Aquí deberías realizar una solicitud al servidor para obtener el archivo generado
+                // Por simplicidad, aquí solo mostramos un mensaje
+                alert('Descargando archivo generado.');
+            });
+        });
+    </script>
 </body>
 </html>

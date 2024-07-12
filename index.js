@@ -1,4 +1,5 @@
 const xlsx = require('xlsx');
+const fs = require('fs');
 
 // Función para cargar y convertir el archivo CSV de transacciones
 const obtenerTn = () => {
@@ -96,14 +97,14 @@ const cruzarInfo = () => {
                 'Medio de pago': dato['Medio de pago'],
                 //'Identificador de la transacción en el medio de pago': dato['Identificador de la transacción en el medio de pago'],
                 'Precio Venta': valorProducto,
+                'Interes Cuota': costosFinanciacion,
                 'Cargo de Mercado Pago': tarifaMercadoPago,
                 'Comisión de terceros': comisionTerceros,
-                'Monto recibido': montoRecibido,
+                'Impuesto IIBB': impuestoIIBB,
+                // 'Monto recibido': montoRecibido,
                 //'Cuotas (installments)': datosMpEncontrado['Cuotas (installments)'],
-                'Interes Cuota': costosFinanciacion,
                 'Impuesto IIBB regimen SIRTAC': sirtac,
                 'Impuesto debito/credito': impuestoDebitoCredito,
-                'Impuesto IIBB': impuestoIIBB,
             };
         } else {
             return {
@@ -119,6 +120,16 @@ const cruzarInfo = () => {
     return datosCruzados;
 }
 
+// Función para guardar los datos cruzados en un archivo Excel
+const guardarEnExcel = (datos, nombreArchivo) => {
+    const hoja = xlsx.utils.json_to_sheet(datos);
+    const libro = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(libro, hoja, 'Datos Cruzados');
+
+    xlsx.writeFile(libro, nombreArchivo);
+}
+
 // Ejemplo de uso
 const datosFinales = cruzarInfo();
-console.log(datosFinales);
+guardarEnExcel(datosFinales, 'datos_cruzados.xlsx');
+console.log('Archivo Excel guardado como datos_cruzados.xlsx');
